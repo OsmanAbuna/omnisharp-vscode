@@ -40,12 +40,14 @@ async function checkForInvalidArchitecture(platformInformation: PlatformInformat
             eventStream.post(new DebuggerPrerequisiteFailure("[ERROR] The debugger cannot be installed. The debugger requires macOS 10.12 (Sierra) or newer."));
             return true;
         }
-        else if (platformInformation.architecture !== "x86_64") {
-            if (platformInformation.isWindows() && platformInformation.architecture === "x86") {
-                eventStream.post(new DebuggerPrerequisiteWarning(`[WARNING]: x86 Windows is not currently supported by the .NET Core debugger. Debugging will not be available.`));
-            } else {
-                eventStream.post(new DebuggerPrerequisiteWarning(`[WARNING]: Processor architecture '${platformInformation.architecture}' is not currently supported by the .NET Core debugger. Debugging will not be available.`));
-            }
+        else if (platformInformation.isWindows() && platformInformation.architecture === "x86") {
+            eventStream.post(new DebuggerPrerequisiteWarning(`[WARNING]: x86 Windows is not currently supported by the .NET Core debugger. Debugging will not be available.`));
+        }
+        else if (platformInformation.isLinux() && 
+                    platformInformation.architecture !== "x86_64" &&
+                    platformInformation.architecture !== "arm" &&
+                    platformInformation.architecture !== "arm64") {
+            eventStream.post(new DebuggerPrerequisiteWarning(`[WARNING]: Processor architecture '${platformInformation.architecture}' is not currently supported by the .NET Core debugger. Debugging will not be available.`));
             return true;
         }
     }

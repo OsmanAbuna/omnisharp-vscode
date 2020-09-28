@@ -215,6 +215,7 @@ function isSupportedPlatform(platform: PlatformInformation): boolean {
     }
 
     if (platform.isLinux()) {
+        // TODO: Add 'arm' and 'arm64'
         return platform.architecture === "x86_64" ||
             platform.architecture === "x86" ||
             platform.architecture === "i686";

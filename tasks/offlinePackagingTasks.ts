@@ -56,6 +56,9 @@ async function doPackageOffline() {
         new PlatformInformation('win32', 'x86_64'),
         new PlatformInformation('darwin', 'x86_64'),
         new PlatformInformation('linux', 'x86_64')
+        // TODO: arm and arm64
+        // new PlatformInformation('linux', 'arm')
+        // new PlatformInformation('linux', 'arm64')
     ];
 
     for (let platformInfo of packages) {
